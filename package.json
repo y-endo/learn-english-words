@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "stylelint": "stylelint --fix ./src/scss/**/*.scss",
-    "dev": "NODE_ENV=development webpack-dev-server --config ./webpack.config.js & onchange './src/scss/**/*.scss' -- npm run stylelint",
+    "stylelint": "stylelint --fix \"./src/**/*.scss\"",
+    "dev": "NODE_ENV=development webpack-dev-server --config ./webpack.config.js & onchange \"./src/**/*.scss\" -- npm run stylelint",
     "build": "NODE_ENV=production webpack --colors --config ./webpack.config.js"
   },
   "repository": "https://github.com/y-endo/english-words.git",

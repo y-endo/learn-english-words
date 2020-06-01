@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import DefaultLayout from '~/layouts/default';
+import Entrance from '~/components/Entrance';
+
 const IndexPage: React.FC = () => {
   const handleClick = () => {
     const speech = new SpeechSynthesisUtterance('Speech Synthesis');
@@ -24,13 +27,16 @@ const IndexPage: React.FC = () => {
       });
   }, []);
 
-  return (
+  const content = (
     <div>
-      Index
-      <br />
-      <button onClick={handleClick}>play</button>
+      <Entrance title="NGSL" path="/play/ngsl" />
+      <Entrance title="NAWL" path="/play/nawl" />
+      <Entrance title="TSL" path="/play/tsl" />
+      <Entrance title="BSL" path="/play/bsl" />
     </div>
   );
+
+  return <DefaultLayout content={content} />;
 };
 
 export default IndexPage;

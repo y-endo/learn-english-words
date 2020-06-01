@@ -5,6 +5,7 @@ import '~/styles/reset.scss';
 import '~/styles/base.scss';
 
 import IndexPage from '~/pages/Index';
+import PlayPage from './pages/play';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={IndexPage} />
+          <Route path="/play/" component={PlayPage}></Route>
         </Switch>
       </Router>
     </React.StrictMode>
