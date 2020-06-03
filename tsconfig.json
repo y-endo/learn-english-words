@@ -7,7 +7,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "incremental": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "strict": true,

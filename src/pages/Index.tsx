@@ -10,23 +10,6 @@ const IndexPage: React.FC = () => {
     speechSynthesis.speak(speech);
   };
 
-  React.useEffect(() => {
-    fetch('/assets/data/1_NGSL.csv')
-      .then(csv => csv.text())
-      .then(textData => {
-        const data = textData.split('\n').map(row => {
-          const rowArray = row.split(',');
-          return {
-            en: rowArray[0],
-            ja: rowArray[1],
-            pronunciation: rowArray[2],
-            pos: rowArray[3]
-          };
-        });
-        console.log(data);
-      });
-  }, []);
-
   const content = (
     <div>
       <Entrance title="NGSL" path="/play/ngsl" />
