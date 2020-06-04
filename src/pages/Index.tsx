@@ -4,12 +4,6 @@ import DefaultLayout from '~/layouts/default';
 import Entrance from '~/components/Entrance';
 
 const IndexPage: React.FC = () => {
-  const handleClick = () => {
-    const speech = new SpeechSynthesisUtterance('Speech Synthesis');
-    speech.lang = 'en-US';
-    speechSynthesis.speak(speech);
-  };
-
   const content = (
     <div>
       <Entrance title="NGSL" path="/play/ngsl" />

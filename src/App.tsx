@@ -13,7 +13,7 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={IndexPage} />
-          <Route exact path="/play/:id" component={PlayPage}></Route>
+          <Route exact path="/play/:type" component={PlayPage}></Route>
         </Switch>
       </Router>
     </React.StrictMode>

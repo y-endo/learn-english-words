@@ -1,0 +1,23 @@
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 600px;
+  height: 250px;
+  margin: 0 auto;
+  padding: 30px;
+  line-height: 1;
+  text-align: center;
+  border: solid 1px #ccc;
+}
+
+.text {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.sub-text {
+  margin: 10px auto 0;
+  font-size: 1.5rem;
+}
