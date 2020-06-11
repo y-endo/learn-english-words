@@ -8,7 +8,18 @@ export default function uniqueRandomIntegerArray(option: {
   exclude?: number[];
 }): number[] {
   const { length, min, max, include, exclude } = option;
-  if (max - min + 1 < length) return [];
+  if (max - min + 1 < length) {
+    console.warn(`(max - min + 1 < length: ${max - min + 1 < length}) 引数に問題があるため空の配列を返します。`);
+    return [];
+  }
+  if (exclude && max - min + 1 < length - exclude.length) {
+    console.warn(
+      `(max - min + 1 < length - exclude.length: ${
+        max - min + 1 < length - exclude.length
+      }) 引数に問題があるため空の配列を返します。`
+    );
+    return [];
+  }
   const set: Set<number> = new Set();
 
   if (include) {

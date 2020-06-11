@@ -12,6 +12,14 @@
   border: solid 1px #ccc;
 }
 
+.panel--correct {
+  color: blue;
+}
+
+.panel--incorrect {
+  color: red;
+}
+
 .text {
   font-weight: bold;
   font-size: 3rem;

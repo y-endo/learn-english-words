@@ -3,12 +3,12 @@ import css from './index.scss';
 
 type Props = {
   items: string[];
-  selectCallback?: () => void;
+  selectCallback?: (event: React.MouseEvent) => void;
 };
 
 const Options: React.FC<Props> = ({ items, selectCallback }) => {
-  const handleClick = () => {
-    if (selectCallback) selectCallback();
+  const handleClick = (event: React.MouseEvent) => {
+    if (selectCallback) selectCallback(event);
   };
 
   const listItems = items.map(item => (

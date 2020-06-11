@@ -23,6 +23,9 @@ const csvPath: { [key: string]: string } = {
 };
 
 const PlayPage: React.FC<Props> = ({ match }) => {
+  const correctSE = React.useRef(new Audio());
+  const incorrectSE = React.useRef(new Audio());
+  const [panelStatus, setPanelStatus] = React.useState('');
   const isFetching = useSelector<Store, Store['question']['isFetching']>(state => state.question.isFetching);
   const data = useSelector<Store, Store['question']['data']>(state => state.question.data);
   const test = useSelector<Store, Store['game']['test']>(state => state.game.test);
@@ -31,6 +34,11 @@ const PlayPage: React.FC<Props> = ({ match }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    correctSE.current.src = '/assets/audio/correct.mp3';
+    correctSE.current.load();
+    incorrectSE.current.src = '/assets/audio/incorrect.mp3';
+    incorrectSE.current.load();
+
     dispatch(fetchQuestion({ path: csvPath[match.params.type] }));
   }, []);
 
@@ -52,10 +60,18 @@ const PlayPage: React.FC<Props> = ({ match }) => {
   }, [data]);
 
   React.useEffect(() => {
-    if (test) dispatch(setCurrentQuestion(test[answerCount]));
+    if (test) {
+      dispatch(setCurrentQuestion(test[answerCount]));
+    }
   }, [answerCount]);
 
-  const playVoice = () => {
+  React.useEffect(() => {
+    if (currentQuestion) {
+      listen();
+    }
+  }, [currentQuestion]);
+
+  const listen = () => {
     if (currentQuestion === void 0) return;
     speechSynthesis.cancel();
     const speech = new SpeechSynthesisUtterance(currentQuestion.en);
@@ -63,8 +79,21 @@ const PlayPage: React.FC<Props> = ({ match }) => {
     speechSynthesis.speak(speech);
   };
 
-  const selectAnswer = () => {
-    dispatch(increaseAnswerCount());
+  const selectAnswer = (event: React.MouseEvent) => {
+    correctSE.current.currentTime = 0;
+    incorrectSE.current.currentTime = 0;
+
+    if (currentQuestion!.ja === event.currentTarget.textContent) {
+      correctSE.current.play();
+      setPanelStatus('correct');
+      setTimeout(() => {
+        setPanelStatus('');
+        dispatch(increaseAnswerCount());
+      }, 300);
+    } else {
+      setPanelStatus('incorrect');
+      incorrectSE.current.play();
+    }
   };
 
   const content = isFetching ? (
@@ -77,8 +106,7 @@ const PlayPage: React.FC<Props> = ({ match }) => {
     </div>
   ) : (
     <div>
-      <Panel text={currentQuestion.en} subText={currentQuestion.pronunciation || ''} />
-      <button onClick={playVoice}>音声を聴く</button>
+      <Panel text={currentQuestion.en} subText={currentQuestion.pronunciation || ''} status={panelStatus} />
       {currentQuestion.options && <Options items={currentQuestion.options} selectCallback={selectAnswer} />}
     </div>
   );
