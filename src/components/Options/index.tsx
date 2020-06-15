@@ -6,7 +6,7 @@ type Props = {
   selectCallback?: (event: React.MouseEvent) => void;
 };
 
-const Options: React.FC<Props> = ({ items, selectCallback }) => {
+const Options: React.FC<Props> = React.memo(({ items, selectCallback }) => {
   const handleClick = (event: React.MouseEvent) => {
     if (selectCallback) selectCallback(event);
   };
@@ -18,6 +18,6 @@ const Options: React.FC<Props> = ({ items, selectCallback }) => {
   ));
 
   return <ul className={css['option-list']}>{listItems}</ul>;
-};
+});
 
 export default Options;

@@ -67,34 +67,37 @@ const PlayPage: React.FC<Props> = ({ match }) => {
 
   React.useEffect(() => {
     if (currentQuestion) {
-      listen();
+      speak();
     }
   }, [currentQuestion]);
 
-  const listen = () => {
+  const speak = React.useCallback(() => {
     if (currentQuestion === void 0) return;
     speechSynthesis.cancel();
     const speech = new SpeechSynthesisUtterance(currentQuestion.en);
     speech.lang = 'en-US';
     speechSynthesis.speak(speech);
-  };
+  }, [currentQuestion]);
 
-  const selectAnswer = (event: React.MouseEvent) => {
-    correctSE.current.currentTime = 0;
-    incorrectSE.current.currentTime = 0;
+  const selectAnswer = React.useCallback(
+    (event: React.MouseEvent) => {
+      correctSE.current.currentTime = 0;
+      incorrectSE.current.currentTime = 0;
 
-    if (currentQuestion!.ja === event.currentTarget.textContent) {
-      correctSE.current.play();
-      setPanelStatus('correct');
-      setTimeout(() => {
-        setPanelStatus('');
-        dispatch(increaseAnswerCount());
-      }, 300);
-    } else {
-      setPanelStatus('incorrect');
-      incorrectSE.current.play();
-    }
-  };
+      if (currentQuestion!.ja === event.currentTarget.textContent) {
+        correctSE.current.play();
+        setPanelStatus('correct');
+        setTimeout(() => {
+          setPanelStatus('');
+          dispatch(increaseAnswerCount());
+        }, 300);
+      } else {
+        setPanelStatus('incorrect');
+        incorrectSE.current.play();
+      }
+    },
+    [currentQuestion]
+  );
 
   const content = isFetching ? (
     <div>
@@ -106,7 +109,12 @@ const PlayPage: React.FC<Props> = ({ match }) => {
     </div>
   ) : (
     <div>
-      <Panel text={currentQuestion.en} subText={currentQuestion.pronunciation || ''} status={panelStatus} />
+      <Panel
+        text={currentQuestion.en}
+        subText={currentQuestion.pronunciation || ''}
+        status={panelStatus}
+        speak={speak}
+      />
       {currentQuestion.options && <Options items={currentQuestion.options} selectCallback={selectAnswer} />}
     </div>
   );

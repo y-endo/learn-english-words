@@ -5,9 +5,10 @@ type Props = {
   text: string;
   subText?: string;
   status?: string;
+  speak?: () => void;
 };
 
-const Panel: React.FC<Props> = ({ text, subText, status }) => {
+const Panel: React.FC<Props> = ({ text, subText, status, speak }) => {
   let rootClassName = css['panel'];
 
   if (status === 'correct') {
@@ -16,8 +17,12 @@ const Panel: React.FC<Props> = ({ text, subText, status }) => {
     rootClassName += ` ${css['panel--incorrect']}`;
   }
 
+  const handleClick = () => {
+    if (speak) speak();
+  };
+
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} onClick={handleClick}>
       <div className={css['panel__inner']}>
         <p className={css['text']}>{text}</p>
         {subText && <p className={css['sub-text']}>{subText}</p>}

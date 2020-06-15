@@ -27,8 +27,10 @@
     }
 
     &:hover {
-      color: blue;
-      border-color: blue;
+      @include pc {
+        color: blue;
+        border-color: blue;
+      }
     }
   }
 }
