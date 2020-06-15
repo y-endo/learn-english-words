@@ -1,3 +1,6 @@
+@import '~/styles/variables.scss';
+@import '~/styles/mixins.scss';
+
 .panel {
   display: flex;
   align-items: center;
@@ -10,6 +13,12 @@
   line-height: 1;
   text-align: center;
   border: solid 1px #ccc;
+
+  @include sp {
+    width: auto;
+    height: auto;
+    padding: 40px 15px;
+  }
 }
 
 .panel--correct {
@@ -21,6 +30,7 @@
 }
 
 .text {
+  margin: 0;
   font-weight: bold;
   font-size: 3rem;
 }
@@ -28,4 +38,9 @@
 .sub-text {
   margin: 10px auto 0;
   font-size: 1.5rem;
+
+  @include sp {
+    margin: 8px auto 0;
+    font-size: 1.4rem;
+  }
 }

@@ -1,7 +1,15 @@
+@import '~/styles/variables.scss';
+@import '~/styles/mixins.scss';
+
 .option-list {
   width: 500px;
   margin: 20px auto 0;
   list-style: none;
+
+  @include sp {
+    width: auto;
+    margin: 15px auto 0;
+  }
 
   &__item {
     margin: 0 auto 10px;
@@ -12,6 +20,11 @@
     transition: border-color, color;
     transition-timing-function: ease-out;
     transition-duration: 0.3s;
+
+    @include sp {
+      margin-bottom: 14px;
+      font-size: 1.8rem;
+    }
 
     &:hover {
       color: blue;

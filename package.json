@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "stylelint": "stylelint --fix \"./src/**/*.scss\"",
-    "dev": "NODE_ENV=development webpack-dev-server --config ./webpack.config.js & onchange \"./src/**/*.scss\" -- npm run stylelint",
-    "build": "NODE_ENV=production webpack --colors --config ./webpack.config.js"
+    "dev": "NODE_ENV=development webpack-dev-server --config ./webpack.config.js",
+    "build": "npm run stylelint && NODE_ENV=production webpack --colors --config ./webpack.config.js"
   },
   "repository": "https://github.com/y-endo/english-words.git",
   "author": "YukiEndo",
